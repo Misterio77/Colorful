@@ -14,7 +14,7 @@ pkgs.writeShellScript "shell-theme-${scheme.slug}.sh" /* bash */ ''
 
   apply_color_tty() { echo -ne "\e]P$@"; }
 
-  if [ "$TERM" == "linux" ]; then
+  if [ "$TERM" = "linux" ]; then
     # When running in a tty
     apply_color_tty "0${base00}" # black
     apply_color_tty "1${base08}" # red
