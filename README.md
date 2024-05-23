@@ -8,7 +8,7 @@ a [home-manager](https://github.com/nix-community/home-manager) module for
 globally setting your preferred one.
 
 These schemes are not vendored in: they are directly fetch (and flake locked!)
-from [base16-schemes](https://github.com/base16-project/base16-schemes), then
+from [tinted-schemes](https://github.com/tinted-theming/schemes), then
 converted using our (pure nix) `schemeFromYAML` function, which is also exposed
 for your convenience. This means you can easily make your own schemes, in
 either nix-colors (`.nix`) or base16 (`.yaml`) format, freely converting
@@ -21,11 +21,14 @@ We also have some optional contrib functions for opinionated, common use cases
 (generating scheme from image, generating wallpaper, vim scheme, gtk theme).
 
 ## Base16?
-[Base16](https://github.com/base16-project/base16) is a standard for defining
+[Base16](https://github.com/base16-project/base16) (now is [Tinted Theming](https://github.com/tinted-theming/home)) is a standard for defining
 palettes (schemes), and how each app should be themed (templates).
 
 nix-colors focuses on delivering and helping you use the schemes, all in a
 Nix-friendly way.
+
+## `system` in color schemes?
+This is the style of color schemes. There are two kinds of style supported currently: Base16 and Base24. See [Tinted Theming's readme](https://github.com/tinted-theming/home?tab=readme-ov-file#style) for more information.
 
 # Setup
 
@@ -34,7 +37,7 @@ The usual setup looks like this:
   setup.
 - Import the home-manager module `nix-colors.homeManagerModules.default`
 - Set the option `colorScheme` to your preferred color scheme, such as
-  `nix-colors.colorSchemes.dracula` (or create/convert your own)
+  `nix-colors.colorSchemes.base16.dracula` (or create/convert your own)
 - Use `config.colorScheme.palette.base0X` to refer to any of the 16 colors from
   anywhere!
 
@@ -96,7 +99,7 @@ in {
     nix-colors.homeManagerModules.default
   ];
 
-  colorScheme = nix-colors.colorSchemes.paraiso;
+  colorScheme = nix-colors.colorSchemes.base16.paraiso;
 
   # ...
 }
@@ -108,7 +111,7 @@ With that done, move on to your home manager configuration.
 
 You should import the `nix-colors.homeManagerModules.default`, and set the option
 `colorScheme` to your preferred scheme, such as
-`nix-colors.colorSchemes.dracula`
+`nix-colors.colorSchemes.base16.dracula`
 
 Here's a quick example on how to use it with, say, a terminal emulator (kitty)
 and a browser (qutebrowser):
@@ -118,7 +121,7 @@ and a browser (qutebrowser):
     nix-colors.homeManagerModules.default
   ];
 
-  colorScheme = nix-colors.colorSchemes.dracula;
+  colorScheme = nix-colors.colorSchemes.base16.dracula;
 
   programs = {
     kitty = {
@@ -144,13 +147,14 @@ and a browser (qutebrowser):
 ```
 
 If you change `colorScheme` for anything else (say,
-`nix-colors.colorSchemes.nord`), both qutebrowser and kitty will match the new
+`nix-colors.colorSchemes.base16.nord`), both qutebrowser and kitty will match the new
 scheme! Awesome!
 
 You can, of course, specify (or generate somehow) your nix-colors scheme directly:
 ```nix
 {
   colorScheme = {
+    system = "base16";
     slug = "pasque";
     name = "Pasque";
     author = "Gabriel Fontes (https://github.com/Misterio77)";
@@ -238,10 +242,10 @@ in {
 
 # Upstreaming new schemes
 
-Please please upstream nice schemes you have created!
+Please share nice schemes you have created to upstream!
 
 It's pretty easy to do. Just open up a PR on
-[base16-schemes](https://github.com/base16-project/base16-schemes), and once
+[tinted-schemes](https://github.com/tinted-theming/schemes), and once
 it's in it will be available here.
 
 If it takes a while to be merged, you can temporarily put it together with your
@@ -249,16 +253,16 @@ config and use [`schemeFromYAML`](#schemeFromYAML) to load it.
 
 Alternatively, you can tell nix-colors to follow your base16-schemes fork.
 
-In your flake inputs, add `base16-schemes` and override
-  `nix-colors.inputs.base16-schemes.follows`:
+In your flake inputs, add `schemes` and override
+  `nix-colors.inputs.schemes.follows`:
 ```nix
 {
   description = "Your cool config flake";
   inputs = {
-    base16-schemes = "github:you/base16-schemes"; # Your base16-schemes fork
+    schemes = "github:you/schemes"; # Your base16-schemes fork
 
     nix-colors.url = "github:misterio77/nix-colors";
-    nix-colors.inputs.base16-schemes.follows = "base16-schemes"; # Be sure to add this
+    nix-colors.inputs.schemes.follows = "schemes"; # Be sure to add this
     # ...
   };
   # ...

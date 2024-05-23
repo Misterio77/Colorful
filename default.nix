@@ -11,16 +11,16 @@ let
 
 in
 { nixpkgs-lib ? import ((fromFlake "nixpkgs-lib") + "/lib")
-, base16-schemes ? fromFlake "base16-schemes"
+, schemes ? fromFlake "schemes"
 , ...
 }: rec {
-  lib-contrib = import ./lib/contrib;
+  lib-contrib = import ./lib/contrib { inherit nixpkgs-lib; };
   lib-core = import ./lib/core { inherit nixpkgs-lib; };
   lib = lib-core // { contrib = lib-contrib; };
 
   tests = import ./lib/core/tests { inherit nixpkgs-lib; };
 
-  colorSchemes = import ./schemes.nix { inherit lib base16-schemes; };
+  colorSchemes = import ./schemes.nix { inherit lib schemes; };
   # Alias
   colorschemes = colorSchemes;
 

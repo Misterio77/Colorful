@@ -1,4 +1,4 @@
-{ lib, base16-schemes, ... }:
+{ lib, schemes, ... }:
 let
   inherit (builtins)
     readFile readDir attrNames listToAttrs stringLength substring baseNameOf
@@ -28,15 +28,27 @@ let
   isYamlFile = filename:
     (hasSuffix ".yml" filename) || (hasSuffix ".yaml" filename);
 
-  colorSchemeFiles = filter isYamlFile (attrNames (readDir base16-schemes));
+  getColorSchemeFiles = source: system:
+    filter isYamlFile (attrNames (readDir "${source}/${system}"));
 
-  colorSchemes = listToAttrs (map
-    (filename: rec {
-      # Scheme slug
-      name = stripYamlExtension (baseNameOf filename);
-      # Scheme contents
-      value = schemeFromYAML name (readFile "${base16-schemes}/${filename}");
-    })
-    colorSchemeFiles);
+  getColorSchemes = colorSchemeFiles: system:
+    listToAttrs (map
+      (filename: rec {
+        # Scheme slug
+        name = stripYamlExtension (baseNameOf filename);
+        # Scheme contents
+        value = schemeFromYAML name (readFile "${schemes}/${system}/${filename}");
+      })
+      colorSchemeFiles);
+
+  colorSchemeFiles = {
+    base16 = getColorSchemeFiles schemes "base16";
+    base24 = getColorSchemeFiles schemes "base24";
+  };
+
+  colorSchemes = {
+    base16 = getColorSchemes colorSchemeFiles.base16 "base16";
+    base24 = getColorSchemes colorSchemeFiles.base24 "base24";
+  };
 in
 colorSchemes

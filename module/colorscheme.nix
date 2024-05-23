@@ -18,6 +18,14 @@ in
   ];
 
   options.colorScheme = {
+    system = mkOption {
+      type = types.str;
+      default = "base16";
+      example = "base16";
+      description = ''
+        Color scheme system
+      '';
+    };
     slug = mkOption {
       type = types.str;
       example = "awesome-scheme";
@@ -38,7 +46,7 @@ in
       default = "";
       example = "A very nice theme";
       description = ''
-        Color scheme author
+        Color scheme description
       '';
     };
     author = mkOption {

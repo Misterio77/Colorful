@@ -1,16 +1,19 @@
-{ pkgs }:
+{ nixpkgs-lib, pkgs }:
 {
   path,
+  system ? "base16",
   variant ? kind,
   kind ? "light" # Older alias
 }:
 import (pkgs.stdenv.mkDerivation {
+  inherit (nixpkgs-lib) optional;
   name = "generated-colorscheme";
   buildInputs = with pkgs; [ flavours ];
   unpackPhase = "true";
   buildPhase = ''
     template=$(cat <<-END
     {
+      system = "${system}";
       slug = "$(basename ${path} | cut -d '.' -f1)-${variant}";
       name = "Generated";
       author = "nix-colors";
@@ -31,6 +34,16 @@ import (pkgs.stdenv.mkDerivation {
         base0D = "{{base0D-hex}}";
         base0E = "{{base0E-hex}}";
         base0F = "{{base0F-hex}}";
+  '' ++ optional system == "base24" ''
+        base10 = "{{base10-hex}}";
+        base11 = "{{base11-hex}}";
+        base12 = "{{base12-hex}}";
+        base13 = "{{base13-hex}}";
+        base14 = "{{base14-hex}}";
+        base15 = "{{base15-hex}}";
+        base16 = "{{base16-hex}}";
+        base17 = "{{base17-hex}}";
+  '' ++ ''
       };
     }
     END

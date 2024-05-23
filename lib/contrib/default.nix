@@ -1,4 +1,4 @@
-{ pkgs ? (builtins.trace "nix-colors/lib-contrib: using <nixpkgs> as pkgs because the pkgs parameter was not provided" (import <nixpkgs> { })) }:
+{ nixpkgs-lib, pkgs ? (builtins.trace "nix-colors/lib-contrib: using <nixpkgs> as pkgs because the pkgs parameter was not provided" (import <nixpkgs> { })) }:
 rec {
   # Takes a scheme, resulting wallpaper height and width, plus logo scale, and ouputs the generated wallpaper path
   # Example:

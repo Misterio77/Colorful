@@ -1,28 +1,12 @@
 {
   "nodes": {
-    "base16-schemes": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696158499,
-        "narHash": "sha256-5yIHgDTPjoX/3oDEfLSQ0eJZdFL1SaCfb9d6M0RmOTM=",
-        "owner": "tinted-theming",
-        "repo": "base16-schemes",
-        "rev": "a9112eaae86d9dd8ee6bb9445b664fba2f94037a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tinted-theming",
-        "repo": "base16-schemes",
-        "type": "github"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
-        "lastModified": 1697935651,
-        "narHash": "sha256-qOfWjQ2JQSQL15KLh6D7xQhx0qgZlYZTYlcEiRuAMMw=",
+        "lastModified": 1716079763,
+        "narHash": "sha256-DGRfb7fO7c3XDS3twmuaV5NAGPPdU3W7Q35fjIZc8iY=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "e1e11fdbb01113d85c7f41cada9d2847660e3902",
+        "rev": "0df131b5ee4d928a4b664b6d0cd99cf134d6ab6b",
         "type": "github"
       },
       "original": {
@@ -33,8 +17,24 @@
     },
     "root": {
       "inputs": {
-        "base16-schemes": "base16-schemes",
-        "nixpkgs-lib": "nixpkgs-lib"
+        "nixpkgs-lib": "nixpkgs-lib",
+        "schemes": "schemes"
+      }
+    },
+    "schemes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713388094,
+        "narHash": "sha256-wcotm0Ek2ISn8iJBzEujJQdcPLKWrPAOZ/dS/DLKafw=",
+        "owner": "tinted-theming",
+        "repo": "schemes",
+        "rev": "abcf2a055ae69f1bf047463332f83db3125aa8a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tinted-theming",
+        "repo": "schemes",
+        "type": "github"
       }
     }
   },
