@@ -192,7 +192,8 @@ All of these are exposed at `nix-colors.lib`.
 ### `schemeFromYAML`
 
 This function is used internally to convert base16's schemes to nix-colors
-format, but is exposed so you can absolutely do the same.
+format, but is exposed so you can absolutely do the same. Sadly, it was
+deprecated.
 
 Just grab (or create yours) a `.yaml` file, read it into a string (with
 `readFile`, for example) and you're golden:
@@ -205,6 +206,16 @@ Just grab (or create yours) a `.yaml` file, read it into a string (with
 
 This path can come from wherever nix can read, even another repo! That's what
 we do to expose base16's schemes.
+
+If you feel like the fact `schemeFromYAML` being deprecated is enough
+for you to not use it, then just use `builtins.fromTOML` and a `.toml` file
+instead.
+
+Keep in mind this method will require you to convert the `.yaml` file
+into a `.toml` one (and add a slug field), but comes with the advantage
+that you will be able to use color schemes which weren't released in the 
+currently archived [base16-schemes](https://github.com/base16-project/base16-schemes) repo
+
 
 ### More soon(TM)
 
@@ -236,7 +247,10 @@ in {
 }
 ```
 
-# Upstreaming new schemes
+# ~~Upstreaming new schemes~~
+
+<sub>only kept here for posterity, as the [base16-schemes](https://github.com/base16-project/base16-schemes)
+repository was archived and `nix-colors` wasn't updated to use the new [schemes](https://github.com/tinted-theming/schemes) repo.<sub>
 
 Please please upstream nice schemes you have created!
 
