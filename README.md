@@ -212,9 +212,9 @@ for you to not use it, then just use `builtins.fromTOML` and a `.toml` file
 instead.
 
 Keep in mind this method will require you to convert the `.yaml` file
-into a `.toml` one, but comes with the advantage that you will be able
-to use color schemes which weren't released in the currently archived
-[base16-schemes](https://github.com/base16-project/base16-schemes) repo
+into a `.toml` one (and add a slug field), but comes with the advantage
+that you will be able to use color schemes which weren't released in the 
+currently archived [base16-schemes](https://github.com/base16-project/base16-schemes) repo
 
 
 ### More soon(TM)
